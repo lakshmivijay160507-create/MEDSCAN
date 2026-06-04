@@ -87,6 +87,11 @@ export default function App() {
     setActiveCategory("General");
   };
 
+  const tryAgain = () => {
+    setResult(null);
+    setStep("symptoms");
+  };
+
   const urgencyColor = (urgency) => {
     if (urgency === "Emergency") return "#ff4757";
     if (urgency === "See doctor soon") return "#ffa502";
@@ -113,7 +118,7 @@ export default function App() {
     <div style={{
       minHeight: "100vh",
       background: "linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 50%, #0a1628 100%)",
-      fontFamily: "'Georgia', serif",
+      fontFamily: "'Outfit', sans-serif",
       color: "#e8f4f8",
       padding: "0",
       margin: "0",
@@ -141,7 +146,7 @@ export default function App() {
           </div>
         </div>
         {step === "result" && (
-          <button onClick={reset} style={{
+          <button onClick={reset} className="btn-secondary" style={{
             background: "rgba(100,180,255,0.1)",
             border: "1px solid rgba(100,180,255,0.3)",
             color: "#7dd3fc",
@@ -181,12 +186,12 @@ export default function App() {
                   const color = categoryColors[cat];
                   const active = activeCategory === cat;
                   return (
-                    <button key={cat} onClick={() => setActiveCategory(cat)} style={{
+                    <button key={cat} onClick={() => setActiveCategory(cat)} className="btn-category" style={{
                       padding: "8px 16px", borderRadius: 20,
                       border: active ? `1px solid ${color}99` : "1px solid rgba(100,180,255,0.12)",
                       background: active ? `${color}22` : "rgba(255,255,255,0.03)",
                       color: active ? color : "#7ba7bc",
-                      cursor: "pointer", fontSize: 13, transition: "all 0.2s",
+                      cursor: "pointer", fontSize: 13,
                     }}>
                       {categoryIcons[cat]} {cat}
                     </button>
@@ -202,13 +207,12 @@ export default function App() {
                   const color = categoryColors[cat];
                   const active = activeCategory === cat;
                   return (
-                    <button key={cat} onClick={() => setActiveCategory(cat)} style={{
+                    <button key={cat} onClick={() => setActiveCategory(cat)} className="btn-category" style={{
                       padding: "10px 28px", borderRadius: 20,
                       border: active ? `1px solid ${color}bb` : `1px solid ${color}33`,
                       background: active ? `${color}28` : `${color}0a`,
                       color: active ? color : `${color}88`,
                       cursor: "pointer", fontSize: 14, fontWeight: active ? 600 : 400,
-                      transition: "all 0.2s",
                       boxShadow: active ? `0 0 16px ${color}33` : "none",
                     }}>
                       {categoryIcons[cat]} {cat}
@@ -238,7 +242,7 @@ export default function App() {
                   const selected = selectedSymptoms.includes(symptom);
                   const color = categoryColors[activeCategory];
                   return (
-                    <button key={symptom} onClick={() => toggleSymptom(symptom)} style={{
+                    <button key={symptom} onClick={() => toggleSymptom(symptom)} className="btn-symptom" style={{
                       padding: "10px 14px",
                       borderRadius: 10,
                       border: selected ? `1px solid ${color}88` : "1px solid rgba(100,180,255,0.12)",
@@ -247,7 +251,6 @@ export default function App() {
                       cursor: "pointer",
                       fontSize: 13,
                       textAlign: "left",
-                      transition: "all 0.15s",
                       display: "flex", alignItems: "center", gap: 8,
                     }}>
                       <span style={{
@@ -278,7 +281,7 @@ export default function App() {
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {selectedSymptoms.map((s) => (
-                    <span key={s} onClick={() => toggleSymptom(s)} style={{
+                    <span key={s} onClick={() => toggleSymptom(s)} className="badge-symptom" style={{
                       background: "rgba(26,111,255,0.2)",
                       border: "1px solid rgba(100,180,255,0.35)",
                       borderRadius: 20,
@@ -297,7 +300,7 @@ export default function App() {
 
             {/* Analyze Button */}
             <div style={{ textAlign: "center" }}>
-              <button onClick={analyzeSymptoms} disabled={selectedSymptoms.length === 0} style={{
+              <button onClick={analyzeSymptoms} disabled={selectedSymptoms.length === 0} className="btn-primary" style={{
                 padding: "14px 48px",
                 borderRadius: 50,
                 border: "none",
@@ -310,7 +313,6 @@ export default function App() {
                 cursor: selectedSymptoms.length > 0 ? "pointer" : "not-allowed",
                 letterSpacing: "1px",
                 boxShadow: selectedSymptoms.length > 0 ? "0 4px 24px rgba(26,111,255,0.4)" : "none",
-                transition: "all 0.2s",
               }}>
                 Analyze Symptoms →
               </button>
@@ -338,14 +340,12 @@ export default function App() {
 
             {loading && (
               <div style={{ textAlign: "center", padding: "60px 0" }}>
-                <div style={{
+                <div className="animate-spin" style={{
                   width: 56, height: 56, borderRadius: "50%",
                   border: "3px solid rgba(100,180,255,0.15)",
                   borderTop: "3px solid #1a6fff",
                   margin: "0 auto 20px",
-                  animation: "spin 1s linear infinite",
                 }} />
-                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 <p style={{ color: "#7ba7bc", fontSize: 15 }}>Analyzing your symptoms with AI...</p>
               </div>
             )}
@@ -359,9 +359,7 @@ export default function App() {
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                     {result.possibleConditions?.map((cond, i) => (
-                      <div key={i} style={{
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(100,180,255,0.1)",
+                      <div key={i} className="condition-card card-glass" style={{
                         borderRadius: 14,
                         padding: "20px 24px",
                         borderLeft: `3px solid ${urgencyColor(cond.urgency)}`,
@@ -435,7 +433,7 @@ export default function App() {
 
                 {/* Actions */}
                 <div style={{ display: "flex", gap: 12, justifyContent: "center", paddingTop: 8 }}>
-                  <button onClick={reset} style={{
+                  <button onClick={reset} className="btn-secondary" style={{
                     padding: "12px 32px", borderRadius: 50,
                     border: "1px solid rgba(100,180,255,0.3)",
                     background: "transparent",
@@ -452,7 +450,7 @@ export default function App() {
                 borderRadius: 14, padding: 24, textAlign: "center",
               }}>
                 <p style={{ color: "#ff6b81", margin: "0 0 16px" }}>{result.error}</p>
-                <button onClick={reset} style={{
+                <button onClick={tryAgain} className="btn-text" style={{
                   padding: "10px 28px", borderRadius: 50,
                   border: "1px solid rgba(255,71,87,0.4)",
                   background: "transparent", color: "#ff6b81",

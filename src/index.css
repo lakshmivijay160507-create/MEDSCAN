@@ -1,0 +1,134 @@
+/* Global Style Reset & Variable System */
+:root {
+  --font-family: 'Outfit', sans-serif;
+  --bg-gradient: linear-gradient(135deg, #070b19 0%, #0c1a30 50%, #061122 100%);
+  --text-primary: #e8f4f8;
+  --text-muted: #7ba7bc;
+  --text-dark: #4a6a7a;
+  --accent-blue: #1a6fff;
+  --accent-cyan: #00c9ff;
+  --border-color: rgba(100, 180, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(100, 180, 255, 0.1);
+  --glass-blur: blur(12px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 14, 26, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 180, 255, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 180, 255, 0.4);
+}
+
+/* Micro-animations and Hover Effects */
+.btn-category {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 180, 255, 0.15);
+}
+.btn-category:active {
+  transform: translateY(0);
+}
+
+.btn-symptom {
+  transition: all 0.2s ease;
+}
+.btn-symptom:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(100, 180, 255, 0.3) !important;
+  transform: translateY(-1px);
+}
+.btn-symptom:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 111, 255, 0.5);
+  filter: brightness(1.1);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  transition: all 0.25s ease;
+}
+.btn-secondary:hover {
+  background: rgba(100, 180, 255, 0.15) !important;
+  border-color: rgba(100, 180, 255, 0.5) !important;
+  color: #fff !important;
+}
+
+.btn-text {
+  transition: all 0.2s ease;
+}
+.btn-text:hover {
+  background: rgba(100, 180, 255, 0.15) !important;
+  border-color: rgba(100, 180, 255, 0.4) !important;
+  color: #fff !important;
+}
+
+.badge-symptom {
+  transition: all 0.2s ease;
+}
+.badge-symptom:hover {
+  background: rgba(26, 111, 255, 0.3) !important;
+  border-color: rgba(100, 180, 255, 0.5) !important;
+  transform: scale(1.02);
+}
+
+/* Glassmorphism Cards */
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.condition-card {
+  transition: all 0.3s ease;
+}
+.condition-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(100, 180, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

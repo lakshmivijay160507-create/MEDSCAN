@@ -249,9 +249,9 @@ const CONDITIONS = [
 
   // ─── Thyroid ───
   {
-    name: "Hypothyroidism",
+    name: "Hyperthyroidism",
     symptoms: ["Fatigue", "Weight loss", "Dry skin", "Constipation", "Depression", "Muscle aches", "Stiffness", "Weakness", "Difficulty concentrating"],
-    description: "An underactive thyroid gland that doesn't produce enough hormones, slowing metabolism and causing fatigue and weight changes.",
+    description: "An overactive thyroid gland that produces too much thyroid hormone, accelerating metabolism and causing fatigue, weight loss, and other symptoms.",
     urgency: "See doctor soon",
   },
 
@@ -295,9 +295,9 @@ export function analyzeWithKnowledgeBase(symptoms) {
     };
   });
 
-  // Filter conditions with at least 2 matching symptoms and meaningful score
+  // Filter conditions with at least 2 matching symptoms (or 1 if only 1 symptom was provided) and meaningful score
   const relevant = scored
-    .filter((c) => c.matchCount >= 2 && c.score > 0.15)
+    .filter((c) => c.matchCount >= Math.min(2, normalizedSymptoms.length) && c.score > 0.15)
     .sort((a, b) => b.score - a.score)
     .slice(0, 4);
 

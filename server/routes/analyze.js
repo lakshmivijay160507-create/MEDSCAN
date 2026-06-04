@@ -71,11 +71,11 @@ router.post("/analyze", async (req, res) => {
       });
     }
 
-    // Validate each symptom is a string
-    const invalidSymptoms = symptoms.filter((s) => typeof s !== "string" || s.trim().length === 0);
+    // Validate each symptom is a string and belongs to the valid symptoms list
+    const invalidSymptoms = symptoms.filter((s) => typeof s !== "string" || !VALID_SYMPTOMS.has(s));
     if (invalidSymptoms.length > 0) {
       return res.status(400).json({
-        error: "Invalid symptom entries detected. Each symptom must be a non-empty string.",
+        error: "Invalid symptom entries detected. Each symptom must be a valid symptom name.",
       });
     }
 
